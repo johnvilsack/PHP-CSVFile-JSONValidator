@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- I designed this with Bootstrap and Materialize frameworks, because I love cruft. -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+	<style>
+		::-webkit-input-placeholder {
+			color:#000;
+			font-weight:bold;
+		}
+
+		div#dropzone {
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 9999999999;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+			transition: visibility 175ms, opacity 175ms;
+			display: table;
+			text-shadow: 1px 1px 2px #000;
+			color: #fff;
+			background: rgba(0, 0, 0, 0.45);
+			font: bold 42px;
+		}
+		div#textnode {
+			display: table-cell;
+			text-align: center;
+			vertical-align: middle;
+			transition: font-size 175ms;
+		}
+	</style>
+</head>
+<body>
+<div style="visibility:hidden; opacity:0" id="dropzone">
+		<div id="textnode">Drop anywhere!</div>
+</div>
+
+<div class="container">
+
+	<div class="row">
+		<div class="col s12">
+			<div id="prompt">
+				<h1 class="center">PO Validator</h1>
+				<ul>
+					<li>Drag a PO .CSV onto this page</li>
+					<li>If valid, download the newly formatted .CSV from the window and import that into Response.</li>
+					<li>If critical errors are found, you cannot download the proper files, and should send the errors back to the Data team to fix</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+<form action="#" method="post" enctype="multipart/form-data"><input type="file" id="payload" name="payload" style="display:none;" /></form>
+
+
+<!-- Errors -->
+	<div class="row">
+		<div class="col s8 offset-s2">
+
+			<!-- Before Message -->
+			<div class="card brown lighten-5 black-text" id="beforeCard">
+				<div class="card-content">
+				<p> (Each column must match exactly. Other columns are OK)</p><br>
+				<p><a href="/po/minqty/" target="_blank">View Minimum Qty List</a></p>
+				</div>
+			</div>
+
+			<!-- Error Message -->
+			<div class="card-panel red darken-2 white-text center-align" id="errorsFound" style="display:none;">
+				<div class="card-content white-text">
+					<span class="card-title"><h5>Critical errors were found.</h5></span>
+					<p>You cannot continue until these are fixed.</p>
+				</div>
+				<div class="card-action center">
+					<a href="#" class="black white-text waves-effect waves-light btn" id="btn-error">Download Error Report</a>
+				</div>
+			</div>
+
+			
+
+			<!-- Success Message -->
+			<div class="card green darken-2 white-text center-align" id="validPO" style="display:none;">
+				<div class="card-content white-text">
+					<span class="card-title">Valid!</span>
+					<p>Check for warnings below, but this PO looks good!</p>
+				</div>
+				<div class="card-action">
+					<a href="#" class="green white-text waves-effect waves-light btn" id="btn-all">Valid Import PO</a>
+					<a href="#" class="green white-text waves-effect waves-light btn" id="btn-vendor">Valid Vendor PO</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+<!-- Log -->
+	<div class="row" id="log">
+	</div>
+
+<!-- Downloads -->
+	<div class="row">
+		<div class="col s12">
+			<div id="downloads">
+			</div>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+<script src="/po/POValidator.js"></script>
+</body>
+</html>
+
